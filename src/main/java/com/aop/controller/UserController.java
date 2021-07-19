@@ -23,7 +23,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 
@@ -170,13 +169,18 @@ public class UserController {
             user.setImg(uniqueFileName);
         }
         userService.updateAllInfos(user);
-        request.getSession().setAttribute("user",user);
+        User loginUser = (User) request.getSession().getAttribute("user");
+        if (loginUser.getCardId().equals(user.getCardId())){
+            request.getSession().setAttribute("user",user);
+        }
+
         if (updateFrom.equals("admin")){
             PageInfo pageInfo = (PageInfo) request.getSession().getAttribute("pageInfo");
             int pageNum = pageInfo.getPageNum();
             request.setAttribute("pageNum",pageNum);
             return "forward:/userLogin/findByPageNo";
         }
+        request.getSession().setAttribute("user",user);
         return "commonUser";
     }
 }

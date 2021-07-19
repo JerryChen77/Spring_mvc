@@ -16,9 +16,15 @@ public interface UserMapper {
 
     Integer deleteByCardId(Integer cardId);
 
-    Integer update(@Param("cardId") Integer cardId,@Param("balance") double balance);
+    Integer updateBalance(@Param("cardId") Integer cardId,@Param("balance") double balance);
+
+    Integer updatePersonalInfo(User user);
+
+    Integer updateAllInfos(User user);
 
     User findByCardId(Integer cardId);
 
     List<User> findAll();
+
+    User findByUsername(String username);
 }

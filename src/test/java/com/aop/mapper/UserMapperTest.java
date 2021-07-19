@@ -26,8 +26,9 @@ public class UserMapperTest {
     @Test
     public void tranfer(){
         ClassPathXmlApplicationContext ioc = new ClassPathXmlApplicationContext("applicationContext.xml");
+
         UserServiceImpl userService = ioc.getBean(UserServiceImpl.class);
-        Integer update = userService.update(2, 1, 200);
+        Integer update = userService.updateBalance(2, 2, 4000);
         System.out.println(update);
 
     }

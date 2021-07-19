@@ -25,30 +25,29 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor =Exception.class )
     public Integer save(User user) {
-        userMapper.insert(user);
         System.out.println("Service插入用户信息");
-        return 1;
+        return  userMapper.insert(user);
     }
 
     @Override
     @Transactional(rollbackFor =Exception.class )
     public Integer delete(Integer id) {
-        userMapper.deleteByCardId(id);
+        Integer integer = userMapper.deleteByCardId(id);
         System.out.println("Service删除用户信息");
-        return null;
+        return integer;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer update(Integer fromCardId,Integer toCardId,double money) {
+    public Integer updateBalance(Integer fromCardId,Integer toCardId,double money) {
         User fromCardUser = userMapper.findByCardId(fromCardId);
         User toCardIdUser = userMapper.findByCardId(toCardId);
-            if (fromCardUser!=null&&toCardIdUser!=null){
+            if (fromCardUser!=null&&toCardIdUser!=null&&fromCardUser!=toCardIdUser){
                 if (fromCardUser.getAccountBalance()>=money){
                     double fromCardUserBalance=fromCardUser.getAccountBalance()-money;
                     double toCardUserBalance=toCardIdUser.getAccountBalance()+money;
-                    userMapper.update(fromCardId,fromCardUserBalance);
-                    userMapper.update(toCardId,toCardUserBalance);
+                    userMapper.updateBalance(fromCardId,fromCardUserBalance);
+                    userMapper.updateBalance(toCardId,toCardUserBalance);
 //                    System.out.println(10/0);
                     System.out.println("Service更新用户信息");
                     return 1;
@@ -56,10 +55,8 @@ public class UserServiceImpl implements UserService {
                     throw new RuntimeException("余额不足");
                 }
             }else{
-                throw new RuntimeException("账号不存在");
+                throw new RuntimeException("账户异常");
             }
-
-
     }
 
     @Override
@@ -75,4 +72,16 @@ public class UserServiceImpl implements UserService {
         System.out.println("Service查询所有用户信息");
         return all;
     }
+
+    @Override
+    public Integer updatePersonalInfo(User user) {
+        return  userMapper.updatePersonalInfo(user);
+    }
+
+    @Override
+    public Integer updateAllInfos(User user) {
+        return userMapper.updateAllInfos(user);
+    }
+
+
 }

@@ -14,9 +14,13 @@ public interface UserService {
 
     Integer delete(Integer id);
 
-    Integer update(Integer fromCardId,Integer toCardId,double money);
+    Integer updateBalance(Integer fromCardId,Integer toCardId,double money);
 
     User select(Integer id);
 
     List<User> selectAll();
+
+    Integer updatePersonalInfo(User user);
+
+    Integer updateAllInfos(User user);
 }

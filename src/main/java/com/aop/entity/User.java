@@ -1,11 +1,12 @@
 package com.aop.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
+import java.io.Serializable;
 
 /**
  * @author Cjl
@@ -15,10 +16,19 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User implements Serializable {
     private Integer cardId;
     private String username;
-    private String accountPassword;
     private double accountBalance;
-    private Integer UserId;
+
+    @JSONField(serialize = false)
+    private String accountPassword;
+
+
+    @JSONField(serialize = false)
+    private Integer userId;
+
+    private String img;
+
+    private Integer isAdmin;
 }

@@ -95,13 +95,13 @@
 
 
             function check_fields(){
-                var v1= $(".newUserName").val();
-                var v2= $(".newUserPassword").val();
+                var v1= $("#newUserName").val();
+                var v2= $("#newUserPassword").val();
                 if($.trim(v1)==""||$.trim(v2)==""){
                     alert("清输入用户信息");
                     return false;
                 }else{
-                    $(".newUser").submit();
+                    $("#newUser").submit();
                 }
             }
 
@@ -130,6 +130,8 @@
                                 </ul>
                                 <form class="navbar-form navbar-left" action="${pageContext.request.contextPath}/user/upload" enctype="multipart/form-data" method="post">
                                     <input type="hidden" name="cardId" value="${sessionScope.user.cardId}">
+                                    <input type="hidden" name="pageNum" value="${pageInfo.pageNum}">
+
                                     <a href="" class="a-upload">
                                         <input type="file" name="img" id="">更新头像
                                     </a>

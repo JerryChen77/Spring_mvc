@@ -4,6 +4,7 @@ import com.aop.entity.User;
 import com.aop.service.impl.UserServiceImpl;
 
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -78,9 +80,7 @@ public class UserController {
         System.out.println("图片上传成功！");
 
         if (user.getIsAdmin()==1){
-            List<User> users = userService.selectAll();
-            session.setAttribute("users",users);
-            return "admin";
+            return "forward:/userLogin/findByPageNo";
         }
         return "commonUser";
     }
@@ -111,8 +111,10 @@ public class UserController {
     }
 
     @RequestMapping("/register")
-    public String register(User user,HttpServletRequest request,MultipartFile image) throws InvocationTargetException, IllegalAccessException, IOException {
-
+    public String register(HttpServletRequest request,MultipartFile image) throws InvocationTargetException, IllegalAccessException, IOException {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        User user = new User();
+        BeanUtils.populate(user,parameterMap);
 
         //若上传了图片则上传至服务器
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;

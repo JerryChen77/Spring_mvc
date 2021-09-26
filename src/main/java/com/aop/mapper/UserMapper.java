@@ -10,7 +10,7 @@ import java.util.List;
  * @author Cjl
  * @date 2021/7/8 12:52
  */
-@Repository
+
 public interface UserMapper {
     Integer insert(User user);
 

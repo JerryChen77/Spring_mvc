@@ -1,6 +1,4 @@
 package com.aop.entity;
-
-import lombok.Data;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,7 +7,6 @@ import org.springframework.stereotype.Component;
  * ResultVO：封装后台向前台传输的数据的类
  */
 @Component("ResultVO")
-
 public class ResultVO {
     /**
      * 是否成功
